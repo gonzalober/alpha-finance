@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function StockRow() {
   const { data, loading } = useFetch(
-    "https://cloud.iexapis.com/stable/stock/market/batch?symbols=goog,fb&types=chart&range=1m&last=5&token=pk_32c3cc0e5efd4e45847b33e0369afb60"
+    "https://cloud.iexapis.com/stable/stock/market/batch?symbols=goog,amzn,fb&types=chart&range=1m&last=5&token=pk_b4e7d7d3cfb1485cb2fc5dbc6f3f9f23"
   );
   const [table, setTable] = useState([]);
   //  "https://cloud.iexapis.com/stable/stock/FB/chart/date/20201111?token=pk_32c3cc0e5efd4e45847b33e0369afb60"
@@ -13,7 +13,7 @@ export default function StockRow() {
   function ticker(input) {
     console.log(input);
     let stockFiltered = data.filter((tickersymbol) => tickersymbol === input);
-    setTable(ditanceFiltered.sort((a, b) => (a.time < b.time ? -1 : 1)));
+    setTable(stockFiltered.sort((a, b) => (a.updated < b.updated ? -1 : 1)));
   }
   const border = {
     borderColor: "grey",
@@ -21,22 +21,21 @@ export default function StockRow() {
   };
   const DisplaInfo = () => {
     if (data) {
-      for (let key in data) {
-        let value = data[key];
-        // for (const [stock, value] of Object.entries(data)) {
-        //   console.log(stock, value);
-        return (
-          <tr style={border}>
-            <td>{key}</td>
-            <td>{console.log(key)}</td>
-            <td>{console.log(value)}</td>
-            <td>{console.log(value.chart)}</td>
-            <td>{value.chart.close}</td>
-            <td>{value.date}</td>
-            <td>{value.label}</td>
-          </tr>
-        );
-      }
+      console.log(data);
+      //for (let key in data) {
+      //   let value = data[key];
+      //   // for (const [stock, value] of Object.entries(data)) {
+      //   console.log(Object.keys(data));
+      return Object.entries(data).map(([key, value]) => (
+        <tr style={border} key={key}>
+          <td>{key}</td>
+          <td>{value.chart[0].close}</td>
+          <td>
+            <pre>{JSON.stringify(value.chart[0].close, null, 2)}</pre>
+          </td>
+          <td>{value.date}</td>
+        </tr>
+      ));
     } else {
       return null;
     }
