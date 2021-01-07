@@ -18,7 +18,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test2": "jest",
+    "cy:run": "cypress run",
+    "test": "react-scripts test cy:run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,5 +40,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "cypress": "^6.2.1"
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gonzalober/alpha-finance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gonzalober/alpha-finance/issues"
+  },
+  "homepage": "https://github.com/gonzalober/alpha-finance#readme"
 }
