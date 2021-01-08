@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test2": "jest",
     "cy:run": "cypress run",
-    "test": "react-scripts test cy:run",
+    "test": "start-server-and-test start http://localhost:3000 cy:run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,18 +42,8 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^6.2.1"
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gonzalober/alpha-finance.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gonzalober/alpha-finance/issues"
-  },
-  "homepage": "https://github.com/gonzalober/alpha-finance#readme"
+    "cypress": "^6.2.1",
+    "react-test-renderer": "^17.0.1",
+    "start-server-and-test": "1.9.0"
+  }
 }

@@ -43,6 +43,7 @@ export default function StockRow() {
 
   return (
     <div>
+      <h1>Alpha-Finance</h1>
       <p>Enter the ticker: </p>
       <input type="text" defaultValue="" />
       <input
