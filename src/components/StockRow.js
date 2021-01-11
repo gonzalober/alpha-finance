@@ -22,18 +22,12 @@ export default function StockRow() {
   const DisplaInfo = () => {
     if (data) {
       console.log(data);
-      //for (let key in data) {
-      //   let value = data[key];
-      //   // for (const [stock, value] of Object.entries(data)) {
-      //   console.log(Object.keys(data));
       return Object.entries(data).map(([key, value]) => (
         <tr style={border} key={key}>
           <td>{key}</td>
           <td>{value.chart[0].close}</td>
-          <td>
-            <pre>{JSON.stringify(value.chart[0].close, null, 2)}</pre>
-          </td>
-          <td>{value.date}</td>
+          <td>{value.chart[0].date}</td>
+          <td>{value.chart[0].updated}</td>
         </tr>
       ));
     } else {
