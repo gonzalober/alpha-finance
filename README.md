@@ -1,4 +1,4 @@
-# alpha-finance
+# alpha-finance [![Build Status](https://travis-ci.com/gonzalober/alpha-finance.svg?branch=master)](https://travis-ci.com/gonzalober/alpha-finance)
 
 Alpha-Finance is a web application that allows the user see stock prices in real-time.
 
