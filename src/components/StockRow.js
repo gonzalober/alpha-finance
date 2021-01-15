@@ -6,12 +6,13 @@ export default function StockRow() {
   const { data, loading } = useFetch(
     "https://cloud.iexapis.com/stable/stock/market/batch?symbols=goog,amzn,fb&types=chart&range=1m&last=5&token=pk_b4e7d7d3cfb1485cb2fc5dbc6f3f9f23"
   );
+  const { dataStats, loadingStats } = useFetch(
+    "https://cloud.iexapis.com/stable/stock/goog/stats?token=pk_b4e7d7d3cfb1485cb2fc5dbc6f3f9f23"
+  );
   const [table, setTable] = useState([]);
   //  "https://cloud.iexapis.com/stable/stock/FB/chart/date/20201111?token=pk_32c3cc0e5efd4e45847b33e0369afb60"
-  console.log(data);
 
   function ticker(input) {
-    console.log(input);
     let stockFiltered = data.filter((tickersymbol) => tickersymbol === input);
     setTable(stockFiltered.sort((a, b) => (a.updated < b.updated ? -1 : 1)));
   }
@@ -19,13 +20,33 @@ export default function StockRow() {
     borderColor: "grey",
     marginBottom: "20px",
   };
-  const DisplaInfo = () => {
+
+  const DisplayStats = () => {
+    if (dataStats) {
+      console.log("----");
+      console.log(dataStats);
+      return dataStats.map(([key, value]) => (
+        <tr style={border} key={key}>
+          <td>{key}</td>
+          <td>{value.week52high}</td>
+        </tr>
+      ));
+    } else {
+      return null;
+    }
+  };
+
+  const DisplayInfo = () => {
     if (data) {
       console.log(data);
       return Object.entries(data).map(([key, value]) => (
         <tr style={border} key={key}>
           <td>{key}</td>
           <td>{value.chart[0].close}</td>
+          <td>{value.chart[0].marketChangeOverTime}</td>
+          <td>
+            {value.chart[0].week52high}lo{value.chart[0].week52low}
+          </td>
           <td>{value.chart[0].date}</td>
           <td>{value.chart[0].updated}</td>
         </tr>
@@ -51,11 +72,16 @@ export default function StockRow() {
           <tr>
             <th>Ticker</th>
             <th>Price</th>
+            <th>% Change</th>
+            <th>52 weeks range</th>
             <th>Date</th>
             <th>Time</th>
           </tr>
         </thead>
-        <tbody>{DisplaInfo()}</tbody>
+        <tbody>
+          {DisplayInfo()}
+          {DisplayStats()}
+        </tbody>
       </table>
     </div>
   );
