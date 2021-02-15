@@ -1,72 +1,71 @@
 import React from "react";
 import { useFetch } from "./useFetch.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { iex } from "../services/Api/iex";
+import * as d3 from "d3";
+
+const TickerTable = ({ tickers, tickerSearch }) => {
+  const tickerEl = useRef(null);
+  if (tickers) {
+    const tickersArray = [];
+    for (const keyTicker in tickers) {
+      tickersArray.push(keyTicker);
+    }
+    console.log(tickersArray);
+    return (
+      <form>
+        <div>
+          <input
+            ref={tickerEl}
+            type="text"
+            defaultValue=""
+            placeholder="ticker"
+          />
+          <button
+            onClick={(ev) => {
+              ev.preventDefault();
+              tickerSearch(tickerEl.current.value);
+            }}
+          >
+            Filter
+          </button>
+        </div>
+      </form>
+    );
+  } else {
+    return null;
+  }
+};
 
 export default function StockRow() {
-  const { data, loading } = useFetch(
-    "https://cloud.iexapis.com/stable/stock/market/batch?symbols=goog,amzn,fb&types=chart&range=1m&last=5&token=pk_b4e7d7d3cfb1485cb2fc5dbc6f3f9f23"
-  );
-  const { dataStats, loadingStats } = useFetch(
-    "https://cloud.iexapis.com/stable/stock/goog/stats?token=pk_b4e7d7d3cfb1485cb2fc5dbc6f3f9f23"
-  );
-  const [table, setTable] = useState([]);
-  //  "https://cloud.iexapis.com/stable/stock/FB/chart/date/20201111?token=pk_32c3cc0e5efd4e45847b33e0369afb60"
+  const [table, setTable] = useState();
+  const data = iex.base_url;
 
-  function ticker(input) {
-    let stockFiltered = data.filter((tickersymbol) => tickersymbol === input);
-    setTable(stockFiltered.sort((a, b) => (a.updated < b.updated ? -1 : 1)));
-  }
   const border = {
     borderColor: "grey",
     marginBottom: "20px",
   };
 
-  const DisplayStats = () => {
-    if (dataStats) {
-      console.log("----");
-      console.log(dataStats);
-      return dataStats.map(([key, value]) => (
-        <tr style={border} key={key}>
-          <td>{key}</td>
-          <td>{value.week52high}</td>
-        </tr>
-      ));
-    } else {
-      return null;
-    }
-  };
-
-  const DisplayInfo = () => {
+  function tickerSearch(input) {
+    console.log(input);
     if (data) {
-      console.log(data);
-      return Object.entries(data).map(([key, value]) => (
-        <tr style={border} key={key}>
-          <td>{key}</td>
-          <td>{value.chart[0].close}</td>
-          <td>{value.chart[0].marketChangeOverTime}</td>
-          <td>
-            {value.chart[0].week52high}lo{value.chart[0].week52low}
-          </td>
-          <td>{value.chart[0].date}</td>
-          <td>{value.chart[0].updated}</td>
-        </tr>
-      ));
-    } else {
-      return null;
+      let stockFiltered = {};
+      stockFiltered[input] = data[input];
+      setTable(stockFiltered);
+      console.log(stockFiltered);
     }
-  };
+    return false;
+  }
+
+  useEffect(() => {
+    setTable(data);
+  }, [data]);
 
   return (
     <div>
       <h1>Alpha-Finance</h1>
-      <p>Enter the ticker: </p>
-      <input type="text" defaultValue="" />
-      <input
-        onClick={() => ticker()}
-        className="form-submit"
-        type="submit"
-        value="ticker"
-      />
+      <h6>Enter the ticker: </h6>
+      <TickerTable tickers={data} tickerSearch={tickerSearch} />
       <table className="table nt-5">
         <thead>
           <tr>
@@ -79,8 +78,21 @@ export default function StockRow() {
           </tr>
         </thead>
         <tbody>
-          {DisplayInfo()}
-          {DisplayStats()}
+          {table
+            ? Object.entries(table).map(([key, value]) => (
+                <tr style={border} key={value.chart}>
+                  <td>{key}</td>
+
+                  <td>{JSON.stringify(value.chart.map((x) => x.close)[0])}</td>
+                  <td>
+                    {(JSON.stringify(value.chart.map((x) => x.close)[0]) /
+                      JSON.stringify(value.chart.map((x) => x.close)[1]) -
+                      1) *
+                      100}
+                  </td>
+                </tr>
+              ))
+            : "loading..."}
         </tbody>
       </table>
     </div>

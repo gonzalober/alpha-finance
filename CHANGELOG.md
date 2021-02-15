@@ -9,3 +9,11 @@
 ### 2021-01-07
 
 - Fix cypress and travis.
+
+### 2021-01-15
+
+- Fix input form.
+
+### 2021-01-28
+
+- Fix and add graphs and table refresh.
