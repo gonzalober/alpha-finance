@@ -35,12 +35,10 @@ export default function StockRow() {
   const [stockChartYvalues, setStockChartYvalues] = useState([]);
   const { data, loading } = useFetch(iex.base_url);
   let stockSymbol = "GOOG";
-  const { bla, blablable } = useFetch(
-    `https://cloud.iexapis.com/stable/stock/market/batch?symbols=${stockSymbol}&types=chart&range=1m&last=5&token=pk_b62f2993a4ce4eb49d8d4ca929bac297`
-  );
-  const { dataStats, loadingStats } = useFetch(
-    "https://cloud.iexapis.com/stable/stock/goog/stats?token=pk_b62f2993a4ce4eb49d8d4ca929bac297"
-  );
+  const { bla, blablable } = useFetch();
+  //`https://cloud.iexapis.com/stable/stock/market/batch?symbols=${stockSymbol}&types=chart&range=1m&last=5&token=pk_b62f2993a4ce4eb49d8d4ca929bac297`
+  const { dataStats, loadingStats } = useFetch();
+  // "https://cloud.iexapis.com/stable/stock/goog/stats?token=pk_b62f2993a4ce4eb49d8d4ca929bac297"
 
   // function setup() {
   //   loadJSON(iex.base_url, gotData);

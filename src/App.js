@@ -7,7 +7,12 @@ import PortOptimization from "./components/PortOptimization.js";
 
 function App() {
   return (
-    <div className="App">
+    <div
+      style={{
+        backgroundImage: `url("../../public/pexels-pixabay-417273.jpg")`,
+      }}
+      className="App"
+    >
       <div className="container">
         <StockRow />
         <StockChart />
