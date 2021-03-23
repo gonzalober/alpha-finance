@@ -1,8 +1,7 @@
 import React from "react";
-import { useFetch } from "./useFetch.js";
+//import { useFetch } from "./useFetch.js";
 import { useState, useEffect, useRef } from "react";
 import { iex } from "../services/Api/iex";
-import * as d3 from "d3";
 
 const TickerTable = ({ tickers, tickerSearch }) => {
   const tickerEl = useRef(null);
@@ -11,7 +10,7 @@ const TickerTable = ({ tickers, tickerSearch }) => {
     for (const keyTicker in tickers) {
       tickersArray.push(keyTicker);
     }
-    console.log(tickersArray);
+    //console.log(tickersArray);
     return (
       <form>
         <div>
