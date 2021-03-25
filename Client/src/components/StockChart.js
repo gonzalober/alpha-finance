@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { file } from "./aapl.csv";
+//import { file } from "./aapl.csv";
 const d3 = require("d3");
 //import * as _ from "lodash";
 

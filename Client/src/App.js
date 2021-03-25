@@ -11,13 +11,13 @@ function App() {
   return (
     <Fragment>
       <Router>
-        <Route exact path="/" component={SignUp} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/portfolio" component={StockRow} />
+        <Route exact path="/portfolio" component={StockChart} />
+        <Route exact path="/portfolio" component={PortPerformance} />
+        <Route exact path="/portfolio" component={PortOptimization} />
       </Router>
-      <StockRow />
-      <StockChart />
-      <PortPerformance />
-      <PortOptimization />
     </Fragment>
   );
 }

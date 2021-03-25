@@ -86,7 +86,7 @@ const Register = () => {
           <Button variant="primary" type="submit" className="mb-2">
             Register my account and login
           </Button>
-          <Link to="/login">
+          <Link to="/">
             <Button variant="outline-primary" type="submit">
               Already signed up? Login here
             </Button>

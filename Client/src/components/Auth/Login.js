@@ -39,7 +39,8 @@ const Login = () => {
   return (
     <div className="Login">
       <form onSubmit={onSubmit}>
-        <h1>Login</h1>
+        <h1>Alpha Finance</h1>
+        <h2>Login</h2>
         <hr></hr>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -69,6 +70,7 @@ const Login = () => {
         </Form.Group>
         <ButtonToolbar>
           <Button
+            href="/portfolio"
             onSubmit={onSubmit}
             variant="primary"
             type="submit"
@@ -77,10 +79,12 @@ const Login = () => {
           >
             Login
           </Button>
+          <br></br>
+          Don't have an account yet?
           <Button
-            href="/"
+            href="/signup"
             onSubmit={onSubmit}
-            variant="outline-primary"
+            variant="primary"
             size="lg"
           >
             Register
